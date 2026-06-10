@@ -1,0 +1,21 @@
+{
+  "name": "agentic-stack",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A free idea browser and agent build kit: browse validated pains, pick a stack, write an eval-gated PRD.",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "eval": "node evals/run.js",
+    "test": "node evals/run.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest",
+    "@workos-inc/node": "latest",
+    "@neondatabase/serverless": "latest"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

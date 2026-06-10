@@ -1,0 +1,68 @@
+{
+  "comparisonUrl": "https://mothivenkatesh.github.io/agentic-workflow-builder-comparison/",
+  "note": "Choose by layer first, then the specific tool. Layer comes from how the run behaves, not from brand preference.",
+  "layers": [
+    { "id": "l1", "name": "Visual automation", "blurb": "Drag-and-drop flows that glue SaaS together. Fixed steps, one LLM node at most.", "whenChoose": "Non-technical owner, deterministic steps, you are wiring apps together." },
+    { "id": "l2", "name": "Low-code agent platforms", "blurb": "Hosted builders for RAG chatbots and single agents with a UI and connectors.", "whenChoose": "You want an agent or assistant fast, with a console, without a codebase." },
+    { "id": "l3", "name": "Code-first agent frameworks", "blurb": "Libraries where you write the agent: the model owns control flow, in your repo.", "whenChoose": "Engineers, the model decides next steps, you need full control and tests." },
+    { "id": "l4", "name": "Durable orchestration engines", "blurb": "Workflow engines that survive crashes, retries, and runs that last hours or days.", "whenChoose": "Long-running, external actions, must outlive a restart, production reliability." }
+  ],
+  "builders": [
+    { "id": "activepieces", "name": "Activepieces", "layer": "l1", "license": "MIT core", "hosting": "Self-host or cloud", "oneLiner": "MIT, embeddable automation with an agent step.", "bestFor": "Embeddable, open-source automation you can white-label.", "url": "https://www.activepieces.com" },
+    { "id": "n8n", "name": "n8n", "layer": "l1", "license": "Sustainable-use (source-available)", "hosting": "Self-host or cloud", "oneLiner": "Developer-friendly visual automation with code nodes.", "bestFor": "Power users who want visual flows plus the escape hatch of code.", "url": "https://n8n.io" },
+    { "id": "dify", "name": "Dify", "layer": "l2", "license": "Open source", "hosting": "Self-host or cloud", "oneLiner": "LLMOps platform: RAG, agents, and a prompt IDE.", "bestFor": "RAG assistants and single agents with a full console.", "url": "https://dify.ai" },
+    { "id": "flowise", "name": "Flowise", "layer": "l2", "license": "Apache-2.0", "hosting": "Self-host or cloud", "oneLiner": "Visual builder over LangChain / LlamaIndex.", "bestFor": "Drag-and-drop chains and agents for fast prototypes.", "url": "https://flowiseai.com" },
+    { "id": "lyzr", "name": "Lyzr", "layer": "l2", "license": "Proprietary", "hosting": "Cloud or on-prem", "oneLiner": "Enterprise agent platform with a typed agent taxonomy.", "bestFor": "Enterprise teams wanting governed agents off the shelf.", "url": "https://www.lyzr.ai" },
+    { "id": "crewai", "name": "CrewAI", "layer": "l3", "license": "MIT", "hosting": "Your infra", "oneLiner": "Role-based multi-agent crews in Python.", "bestFor": "Several specialist agents collaborating on a task.", "url": "https://www.crewai.com" },
+    { "id": "langgraph", "name": "LangGraph", "layer": "l3", "license": "MIT", "hosting": "Your infra", "oneLiner": "Stateful graph control for agents, with checkpoints.", "bestFor": "One capable agent with explicit, testable control flow and state.", "url": "https://www.langchain.com/langgraph" },
+    { "id": "orkes", "name": "Orkes Conductor", "layer": "l4", "license": "Apache-2.0 core", "hosting": "Self-host or cloud", "oneLiner": "Durable workflow engine with human tasks and agentic steps.", "bestFor": "Durable orchestration with built-in HITL and governance.", "url": "https://orkes.io" },
+    { "id": "temporal", "name": "Temporal", "layer": "l4", "license": "MIT", "hosting": "Self-host or cloud", "oneLiner": "Durable execution in code: retries and state for free.", "bestFor": "Engineers who want durable, code-first long-running workflows.", "url": "https://temporal.io" }
+  ],
+  "questions": [
+    { "id": "builder", "label": "Who builds and owns it?", "help": "The team that maintains the thing day to day.", "options": [
+      { "label": "Non-technical or ops", "value": "ops", "weight": { "l1": 3, "l2": 1 } },
+      { "label": "Developers, keep it low-code", "value": "lowcode", "weight": { "l2": 3, "l1": 1 } },
+      { "label": "Software engineers, code-first", "value": "devs", "weight": { "l3": 3, "l4": 2 } }
+    ]},
+    { "id": "control", "label": "Who owns the control flow?", "help": "The single biggest fork: a fixed pipeline, or the model deciding what to do next.", "options": [
+      { "label": "Fixed steps I define (workflow)", "value": "fixed", "weight": { "l1": 3, "l4": 2 } },
+      { "label": "The model decides next (agent)", "value": "model", "weight": { "l3": 3, "l2": 2 } }
+    ]},
+    { "id": "actions", "label": "Does it take real-world actions?", "help": "Calling external APIs, moving data, sending things.", "options": [
+      { "label": "No, it reasons or answers", "value": "no", "weight": { "l2": 2, "l3": 1 } },
+      { "label": "Yes, it acts on outside systems", "value": "yes", "weight": { "l4": 2, "l1": 2, "l3": 1 } }
+    ]},
+    { "id": "durability", "label": "How long is a run, and must it survive a crash?", "help": "Durability is the reason to reach for a workflow engine.", "options": [
+      { "label": "Seconds, fire-and-forget", "value": "short", "weight": { "l2": 2, "l3": 2, "l1": 1 } },
+      { "label": "Minutes to days, or must outlive a restart", "value": "long", "weight": { "l4": 4 } }
+    ]},
+    { "id": "multi", "label": "How many agents?", "help": "Start with one. Justify more.", "options": [
+      { "label": "One agent or one chain", "value": "one", "weight": { "l2": 2, "l1": 1, "l3": 1 } },
+      { "label": "Several specialists coordinating", "value": "many", "weight": { "l3": 2, "l4": 2 } }
+    ]},
+    { "id": "bar", "label": "Reliability bar?", "help": "Money, irreversible actions, and external users raise it.", "options": [
+      { "label": "Internal or experimental", "value": "low", "weight": { "l2": 2, "l1": 1 } },
+      { "label": "Production, money or irreversible", "value": "high", "weight": { "l4": 3, "l3": 1 } }
+    ]},
+    { "id": "host", "label": "Hosting preference?", "help": "", "options": [
+      { "label": "Self-host open source", "value": "oss", "weight": { "l1": 1, "l3": 1, "l4": 1 } },
+      { "label": "Managed cloud is fine", "value": "managed", "weight": { "l2": 1, "l4": 1 } }
+    ]}
+  ],
+  "modelTiers": [
+    { "id": "tiered", "name": "Tiered with fallback", "desc": "Haiku for classification and routing, Sonnet for reasoning and tool calls, Opus as the fallback for hard cases. Claude leads on tool-heavy steps. Always define a fallback chain.", "skill": "model-and-cost" },
+    { "id": "lean", "name": "Lean default", "desc": "Sonnet as the workhorse, Haiku for the cheap deterministic steps. Add a one-line fallback so a provider outage does not take you down.", "skill": "model-and-cost" }
+  ],
+  "memoryTypes": [
+    { "id": "none", "name": "No memory", "desc": "Stateless per run. Cheapest and most predictable. Start here.", "skill": "memory-spec" },
+    { "id": "working", "name": "Working memory", "desc": "Carries personalization and state within a session or task.", "skill": "memory-spec" },
+    { "id": "semantic", "name": "Semantic recall (RAG)", "desc": "Retrieve facts from a corpus at query time. Use for factual recall, not as default memory.", "skill": "memory-spec" },
+    { "id": "observational", "name": "Observational memory", "desc": "Accumulates from tool-heavy, long-running sessions. Append, never wholesale-replace.", "skill": "memory-spec" }
+  ],
+  "evalApproaches": [
+    { "id": "task", "name": "Task-completion eval", "desc": "Did it finish the job correctly against a golden dataset, scored by code not a raw LLM number.", "skill": "eval-plan" },
+    { "id": "tool", "name": "Tool-calling eval", "desc": "Did it pick the right tool with the right arguments. Critical when the agent acts on systems.", "skill": "eval-plan" },
+    { "id": "faithfulness", "name": "Faithfulness eval", "desc": "Is the answer grounded in the retrieved context, no hallucination. For reason-and-answer agents.", "skill": "eval-plan" },
+    { "id": "multiturn", "name": "Multi-turn eval", "desc": "Does it hold context and goal across a conversation.", "skill": "eval-plan" }
+  ]
+}
