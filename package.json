@@ -15,6 +15,9 @@
     "@workos-inc/node": "latest",
     "@neondatabase/serverless": "latest"
   },
+  "devDependencies": {
+    "@types/node": "latest"
+  },
   "engines": {
     "node": ">=18"
   }

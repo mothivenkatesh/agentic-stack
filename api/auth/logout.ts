@@ -1,5 +1,5 @@
 // GET /api/auth/logout -> clear the session cookie and bounce home.
-import { getWorkos, cookiePassword, parseCookies, COOKIE, clearSessionCookie, origin } from '../_workos';
+import { getWorkos, cookiePassword, parseCookies, COOKIE, clearSessionCookie, origin } from '../_workos.js';
 
 export default async function handler(req: any, res: any) {
   const home = origin(req) + '/';

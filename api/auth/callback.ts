@@ -1,7 +1,7 @@
 // GET /api/auth/callback?code=... -> exchange code, seal session into a cookie,
 // upsert the user, redirect back to where they started.
-import { getWorkos, clientId, cookiePassword, setSessionCookie, origin } from '../_workos';
-import { upsertUser } from '../_db';
+import { getWorkos, clientId, cookiePassword, setSessionCookie, origin } from '../_workos.js';
+import { upsertUser } from '../_db.js';
 
 export default async function handler(req: any, res: any) {
   const workos = getWorkos();

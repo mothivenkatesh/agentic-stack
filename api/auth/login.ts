@@ -1,6 +1,6 @@
 // GET /api/auth/login -> redirect to WorkOS AuthKit (passwordless email).
 // If WorkOS is not configured, bounce back so the app still works in public mode.
-import { getWorkos, clientId, redirectUri } from '../_workos';
+import { getWorkos, clientId, redirectUri } from '../_workos.js';
 
 export default async function handler(req: any, res: any) {
   const ret = (req.query && req.query.return) || '/';

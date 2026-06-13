@@ -1,7 +1,7 @@
 // GET/POST/DELETE /api/prds -> saved PRD drafts for the signed-in user.
 // Degrades to { ok:false } when there is no DB or no session (client uses localStorage).
-import { getSql, ensureSchema, readBody } from './_db';
-import { getSessionUser } from './_workos';
+import { getSql, ensureSchema, readBody } from './_db.js';
+import { getSessionUser } from './_workos.js';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('content-type', 'application/json');
