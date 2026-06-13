@@ -3,31 +3,43 @@
    Shared with idea-box / agent-blueprint / gtmstack token family.
    ============================================================ */
 :root{
+  /* unified suite tokens */
+  --ds-font-sans:'Geist','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ds-font-mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --ds-bg-app:#F8FAFC; --ds-bg-card:#FFFFFF;
+  --ds-text-strong:#0F172A; --ds-text-main:#334155; --ds-text-muted:#64748B; --ds-text-faint:#94A3B8;
+  --ds-border-subtle:#E2E8F0;
+  --ds-sidebar-bg:#0F0F0F; --ds-sidebar-panel:#171717; --ds-sidebar-border:#232323;
+  --ds-sidebar-text-strong:#FFFFFF; --ds-sidebar-text:#999999; --ds-sidebar-text-muted:#707070;
+  --ds-radius-control:8px; --ds-radius-card:12px; --ds-radius-pill:999px;
+  --ds-accent:#00AA45; --ds-accent-strong:#1E874B; --ds-accent-soft:#ECFDF3;
+
   /* surfaces */
-  --surface-white:#FFFFFF; --surface-cards:#FFFFFF;
-  --surface-gray-1:#F8FAFC; --surface-gray-2:#F1F5F9; --surface-gray-3:#E2E8F0; --surface-gray-4:#CBD5E1;
+  --surface-white:var(--ds-bg-card); --surface-cards:var(--ds-bg-card);
+  --surface-gray-1:var(--ds-bg-app); --surface-gray-2:#F1F5F9; --surface-gray-3:var(--ds-border-subtle); --surface-gray-4:#CBD5E1;
   --surface-blue-1:#EFF6FF; --surface-blue-2:#DBEAFE;
   --surface-green-1:#ECFDF3; --surface-red-1:#FFF1F2; --surface-amber-1:#FFFBEB; --surface-violet-1:#F5F3FF;
   /* ink */
-  --ink-gray-9:#0F172A; --ink-gray-8:#1E293B; --ink-gray-7:#334155; --ink-gray-6:#475569;
-  --ink-gray-5:#64748B; --ink-gray-4:#94A3B8; --ink-gray-3:#CBD5E1;
+  --ink-gray-9:var(--ds-text-strong); --ink-gray-8:#1E293B; --ink-gray-7:var(--ds-text-main); --ink-gray-6:#475569;
+  --ink-gray-5:var(--ds-text-muted); --ink-gray-4:var(--ds-text-faint); --ink-gray-3:#CBD5E1;
   --ink-blue-2:#2563EB; --ink-blue-3:#1D4ED8; --ink-blue-link:#1E874B;
   --ink-green-2:#15803D; --ink-red-3:#DC2626; --ink-amber-2:#B45309; --ink-violet-2:#6D28D9;
   /* outline */
-  --outline-gray-1:#F1F5F9; --outline-gray-2:#E2E8F0; --outline-gray-3:#CBD5E1; --outline-gray-4:#94A3B8;
+  --outline-gray-1:#F1F5F9; --outline-gray-2:var(--ds-border-subtle); --outline-gray-3:#CBD5E1; --outline-gray-4:#94A3B8;
   --outline-blue-1:#BFDBFE; --outline-green-1:#BBF7D0; --outline-red-1:#FECDD3; --outline-amber-1:#FDE68A;
-  /* Peerlist-like light navigation */
-  --menu-bar:#FFFFFF; --menu-cards:#F8FAFC; --menu-line:#E2E8F0;
-  --menu-ink-9:#0F172A; --menu-ink-7:#334155; --menu-ink-6:#64748B; --menu-ink-4:#94A3B8;
+  /* suite navigation: dark sidebar, light workspace */
+  --menu-bar:var(--ds-sidebar-bg); --menu-cards:var(--ds-sidebar-panel); --menu-line:var(--ds-sidebar-border);
+  --menu-active:#143A28; --menu-active-border:#1E874B;
+  --menu-ink-9:var(--ds-sidebar-text-strong); --menu-ink-7:#D7D7D7; --menu-ink-6:var(--ds-sidebar-text); --menu-ink-4:var(--ds-sidebar-text-muted);
   /* accents */
-  --brand:#00AA45; --brand-strong:#1E874B; --brand-soft:#ECFDF3;
+  --brand:var(--ds-accent); --brand-strong:var(--ds-accent-strong); --brand-soft:var(--ds-accent-soft);
   /* Gradients removed by request — these legacy tokens now resolve to flat solids */
   --grad-section-green:var(--surface-green-1);
   --grad-section-cool:var(--surface-white);
   --grad-green:var(--brand);
   --grad-dark:#0F172A;
   /* shape */
-  --r-sm:8px; --r-md:12px; --r-lg:14px; --r-xl:16px; --r-2xl:20px; --r-pill:999px;
+  --r-sm:var(--ds-radius-control); --r-md:var(--ds-radius-card); --r-lg:var(--ds-radius-card); --r-xl:var(--ds-radius-card); --r-2xl:20px; --r-pill:var(--ds-radius-pill);
   --sh-1:0 1px 2px rgba(15,23,42,.05);
   --sh-2:0 1px 2px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.06);
   --sh-3:0 8px 20px -12px rgba(15,23,42,.25),0 2px 6px rgba(15,23,42,.06);
@@ -88,8 +100,8 @@ p{margin:0}
   cursor:pointer;font-size:13.5px;font-weight:450;border:none;background:transparent;text-align:left;width:100%;
   transition:background .12s,color .12s}
 .sb-item:hover{background:var(--menu-cards);color:var(--menu-ink-9)}
-.sb-item.active{background:var(--brand-soft);color:var(--brand-strong)}
-.sb-item.active .ms{color:var(--brand-strong)}
+.sb-item.active{background:var(--menu-active);color:#D7F8E4;box-shadow:inset 0 0 0 1px rgba(30,135,75,.45)}
+.sb-item.active .ms{color:#46D18B}
 .sb-item .ms{font-size:24px;color:inherit}
 .sb-item .badge{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--menu-ink-4)}
 .sb-foot{padding:10px;border-top:1px solid var(--menu-line)}
