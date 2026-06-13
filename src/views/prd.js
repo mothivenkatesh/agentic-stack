@@ -145,46 +145,46 @@ export function PRD({ seed, onAddKey }) {
         </div>
       </div>
 
-      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+      <div class="prd-split">
         <!-- prompt box -->
-        <div style="flex:1 1 360px;min-width:0;max-width:560px">
+        <div class="prd-form-col">
           <div class="field">
             <label class="label">Agent name</label>
             <input class="input" placeholder="e.g. Repair-shop quote-to-invoice agent" value=${title} onInput=${(e) => setTitle(e.target.value)} />
           </div>
           <div class="field">
             <label class="label">Describe what the agent should do</label>
-            <textarea class="input" style="min-height:160px" placeholder="Who it's for, the job it does, the systems it touches, and what 'done' looks like…" value=${prompt} onInput=${(e) => setPrompt(e.target.value)}></textarea>
+            <textarea class="input input-tall" placeholder="Who it's for, the job it does, the systems it touches, and what 'done' looks like…" value=${prompt} onInput=${(e) => setPrompt(e.target.value)}></textarea>
             <div class="hint">The more concrete the pain and the workflow, the sharper the PRD.</div>
           </div>
 
           ${(pain || stack) ? html`
             <div class="field">
               <label class="label">Context to include</label>
-              <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <div class="prd-row">
                 ${pain ? html`<button class=${'ctxchip' + (usePain ? ' on' : '')} onClick=${() => setUsePain(!usePain)}><${Icon} name=${usePain ? 'check_circle' : 'circle'} /> ${pain.id} · ${pain.title.slice(0, 28)}</button>` : ''}
                 ${stack ? html`<button class=${'ctxchip' + (useStack ? ' on' : '')} onClick=${() => setUseStack(!useStack)}><${Icon} name=${useStack ? 'check_circle' : 'circle'} /> Stack: ${stack.builder.name}</button>` : ''}
               </div>
             </div>` : ''}
 
-          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div class="prd-actions">
             ${busy
               ? html`<button class="btn btn-ghost" onClick=${stop}><${Icon} name="stop" size="18" /> Stop</button>`
               : html`<button class="btn btn-accent btn-lg" disabled=${!canGen} onClick=${generate}><${Icon} name="auto_awesome" size="20" /> ${md ? 'Regenerate' : 'Generate PRD'}</button>`}
-            ${busy ? html`<span class="muted" style="font-size:13px">Generating…</span>` : ''}
+            ${busy ? html`<span class="muted prd-busy">Generating…</span>` : ''}
           </div>
-          ${err ? html`<div class="banner banner-amber" style="margin-top:14px"><${Icon} name="warning" /> <div>${err}</div></div>` : ''}
+          ${err ? html`<div class="banner banner-amber mt-14"><${Icon} name="warning" /> <div>${err}</div></div>` : ''}
         </div>
 
         <!-- result -->
-        <div style="flex:2 1 460px;min-width:0" ref=${resultRef}>
+        <div class="prd-result-col" ref=${resultRef}>
           ${md ? html`
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+            <div class="prd-resulthead">
               <div class="seg">
                 <button class=${!raw ? 'active' : ''} onClick=${() => setRaw(false)}><${Icon} name="article" size="18" /> Rendered</button>
                 <button class=${raw ? 'active' : ''} onClick=${() => setRaw(true)}><${Icon} name="code" size="18" /> Markdown</button>
               </div>
-              <span class="spacer" style="flex:1"></span>
+              <span class="spacer"></span>
               <button class="btn btn-ghost btn-sm" onClick=${save}><${Icon} name="bookmark" size="18" /> Save</button>
               <button class="btn btn-ghost btn-sm" onClick=${() => copyText(md)}><${Icon} name="content_copy" size="18" /> Copy</button>
               <button class="btn btn-accent btn-sm" disabled=${!done} onClick=${download}><${Icon} name="download" size="18" /> Download</button>
@@ -192,14 +192,14 @@ export function PRD({ seed, onAddKey }) {
             </div>
             <div class="prd-result">
               ${raw
-                ? html`<pre class="prose" style="white-space:pre-wrap;margin:0">${md}</pre>`
+                ? html`<pre class="prose prd-md">${md}</pre>`
                 : html`<div class=${'prose' + (busy ? ' prd-cursor' : '')} dangerouslySetInnerHTML=${{ __html: marked.parse(md) }}></div>`}
             </div>`
           : html`
-            ${noKey ? html`<div class="banner banner-amber" style="margin-bottom:12px"><${Icon} name="key" /><div>Add your Anthropic key to generate your own. It stays in your browser and goes straight to Claude. Here is a real sample meanwhile.</div></div>` : ''}
+            ${noKey ? html`<div class="banner banner-amber mb-12"><${Icon} name="key" /><div>Add your Anthropic key to generate your own. It stays in your browser and goes straight to Claude. Here is a real sample meanwhile.</div></div>` : ''}
             <div class="sample-head">
               <span class="pill pill-amber">Sample</span>
-              <span class="muted" style="font-size:12.5px;flex:1 1 180px;min-width:0">A real PRD this tool wrote for <b>${SAMPLE_PAIN}</b>. Yours appears here when you hit Generate.</span>
+              <span class="muted prd-samplenote">A real PRD this tool wrote for <b>${SAMPLE_PAIN}</b>. Yours appears here when you hit Generate.</span>
               ${!store.hasKey() ? html`<button class="btn btn-accent btn-sm" onClick=${onAddKey}><${Icon} name="key" size="18" /> Add your key</button>` : ''}
             </div>
             <div class="prd-result">

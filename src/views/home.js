@@ -46,7 +46,7 @@ export function Home({ go, user }) {
     };
   }
 
-  const skel = html`<div style="display:flex;flex-direction:column;gap:12px;padding:4px 0">${Array(5).fill(0).map(() => html`<span class="skel" style="height:13px"></span>`)}</div>`;
+  const skel = html`<div class="home-skel">${Array(5).fill(0).map(() => html`<span class="skel skel-h13"></span>`)}</div>`;
 
   return html`
     <div class="view view-wide">
@@ -70,7 +70,7 @@ export function Home({ go, user }) {
 
       ${(favs.length || drafts.length) ? html`
         <div class="sect-head"><h2>Jump back in</h2></div>
-        <div class="home-cols" style="margin-bottom:26px">
+        <div class="home-cols mb-26">
           ${favs.length ? html`
             <button class="cont" onClick=${() => go('saved')}>
               <span class="cic ic-amber"><${Icon} name="bookmark" /></span>
@@ -86,14 +86,14 @@ export function Home({ go, user }) {
         </div>` : ''}
 
       <div class="sect-head"><h2>The dataset at a glance</h2><span class="count">${stats ? 'live from ' + fmtNum(stats.total) + ' entries' : 'loading…'}</span></div>
-      <div class="home-cols" style="margin-bottom:28px">
+      <div class="home-cols mb-28">
         <div class="viz-card">
           <div class="viz-head"><b>Where the pain concentrates</b><span>top industries</span></div>
           ${!stats ? skel : stats.top.map(([name, count], i) => html`
             <button class="bar-row" onClick=${() => go('pains', { vertical: name })} title=${'Open ' + name + ' in the browser'}>
               <span class="rankn">${i + 1}</span>
               <span class="bar-label">${name}</span>
-              <span class="bar-track"><span class="bar-fill" style=${{ width: Math.max(6, Math.round((count / stats.maxTop) * 100)) + '%' }}></span></span>
+              <span class="bar-track"><span class="bar-fill" style=${/* one-ui-allow: bar width is data-driven (count / max) */ { width: Math.max(6, Math.round((count / stats.maxTop) * 100)) + '%' }}></span></span>
               <span class="bar-count">${count}</span>
             </button>`)}
           ${stats ? html`<p class="viz-foot">Click an industry to filter the browser.</p>` : ''}
@@ -103,10 +103,10 @@ export function Home({ go, user }) {
           <div class="viz-head"><b>The investor-checked ${stats ? stats.validated : ''}</b><span>verdict mix</span></div>
           ${!stats ? skel : html`
             <div class="vsplit">
-              ${SEGS.filter((s) => stats.mix[s.k]).map((s) => html`<span style=${{ flex: stats.mix[s.k], background: s.c }} title=${s.l + ': ' + stats.mix[s.k]}></span>`)}
+              ${SEGS.filter((s) => stats.mix[s.k]).map((s) => html`<span style=${/* one-ui-allow: segment size + verdict color from data */ { flex: stats.mix[s.k], background: s.c }} title=${s.l + ': ' + stats.mix[s.k]}></span>`)}
             </div>
             <div class="vlegend">
-              ${SEGS.map((s) => html`<span class="vleg"><span class="vdot" style=${{ background: s.c }}></span>${s.l} <b>${stats.mix[s.k] || 0}</b></span>`)}
+              ${SEGS.map((s) => html`<span class="vleg"><span class="vdot" style=${/* one-ui-allow: verdict dot color from data */ { background: s.c }}></span>${s.l} <b>${stats.mix[s.k] || 0}</b></span>`)}
             </div>
             <div class="viz-stat"><b>$${fmtNum(stats.medianWtp)}/mo</b><span>median spend on the problem today</span></div>
             <button class="btn btn-accent btn-sm" onClick=${() => go('pains', { verdict: '__validated__' })}>See all ${stats.validated}</button>`}
