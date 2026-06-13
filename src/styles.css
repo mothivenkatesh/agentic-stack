@@ -52,7 +52,7 @@
   --sh-2:0 1px 2px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.06);
   --sh-3:0 8px 20px -12px rgba(15,23,42,.25),0 2px 6px rgba(15,23,42,.06);
   --sh-4:0 20px 50px -24px rgba(15,23,42,.35);
-  --sidebar-w:212px;
+  --sidebar-w:224px;
   --ease:cubic-bezier(.22,1,.36,1);
   --font:var(--ds-font-sans);
   --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
@@ -148,10 +148,10 @@ p{margin:0}
 /* ============================================================
    COMPONENTS
    ============================================================ */
-.glass-card{background:var(--surface-cards);border:1px solid var(--outline-gray-2);border-radius:var(--r-xl);box-shadow:var(--sh-1)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:inherit;font-size:13px;
-  font-weight:650;border-radius:var(--r-md);padding:7px 14px;min-height:36px;cursor:pointer;border:1px solid transparent;
-  transition:.14s var(--ease);white-space:nowrap;line-height:1;box-shadow:var(--sh-1)}
+/* One UI canonical component layer — must match one-ui/tokens/one-ui.components.css */
+.glass-card{background:var(--ds-bg-card);border:1px solid var(--ds-border-subtle);border-radius:var(--ds-radius-card);box-shadow:var(--ds-shadow-card)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:inherit;font-size:13px;font-weight:600;line-height:1;
+  min-height:40px;padding:10px 16px;border-radius:var(--ds-radius-control);cursor:pointer;border:1px solid transparent;white-space:nowrap;transition:.14s}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .btn .ms{font-size:18px}
 .btn-primary{background:var(--grad-dark);color:#fff;border-color:#0D0D0D}
@@ -160,12 +160,11 @@ p{margin:0}
 .btn-accent:not(:disabled):hover{background:#008A38}
 .btn-ghost{background:var(--surface-cards);border-color:var(--outline-gray-3);color:var(--ink-gray-8)}
 .btn-ghost:hover{background:var(--surface-gray-2)}
-.btn-lg{padding:10px 18px;min-height:42px;font-size:14px}
-.btn-sm{padding:5px 11px;min-height:32px;font-size:12px}
+.btn-lg{min-height:46px;padding:12px 20px;font-size:14px}
+.btn-sm{min-height:32px;padding:6px 12px;font-size:12px}
 .btn-block{width:100%}
 
-.input{width:100%;font-family:inherit;font-size:14px;padding:10px 13px;border:1px solid var(--outline-gray-3);
-  border-radius:var(--r-md);background:var(--surface-white);color:var(--ink-gray-9);outline:none;transition:.14s}
+.input{width:100%;font-family:inherit;font-size:14px;padding:10px 13px;border:1px solid var(--ds-border-subtle);border-radius:var(--ds-radius-control);background:var(--ds-bg-card);color:var(--ds-text-strong);outline:none;transition:.14s}
 .input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
 .input::placeholder{color:var(--ink-gray-4)}
 select.input{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:38px;
@@ -182,14 +181,13 @@ textarea.input{resize:vertical;min-height:90px;line-height:1.55}
   background:var(--surface-white);font-size:13.5px;outline:none;transition:.14s}
 .search input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
 
-.seg{display:inline-flex;background:var(--surface-gray-2);border-radius:var(--r-md);padding:3px;gap:2px;flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--ds-bg-app);border-radius:var(--ds-radius-control);padding:3px;gap:2px;flex-wrap:wrap}
 .seg button{border:none;background:transparent;font-family:inherit;font-size:12px;font-weight:500;color:var(--ink-gray-6);
   padding:6px 11px;border-radius:var(--r-sm);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.12s}
 .seg button:hover{color:var(--ink-gray-9)}
 .seg button.active{background:var(--surface-white);color:var(--ink-gray-9);box-shadow:var(--sh-1)}
 
-.pill{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:var(--r-pill);font-size:11px;
-  font-weight:500;font-family:var(--mono);letter-spacing:.02em;border:1px solid transparent;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:var(--ds-radius-pill);font-size:11.5px;font-weight:500;line-height:1.15;white-space:nowrap;border:1px solid transparent}
 .pill .ms{font-size:13px}
 .pill-gray{background:var(--surface-gray-2);color:var(--ink-gray-6);border-color:var(--outline-gray-2)}
 .pill-blue{background:var(--surface-blue-1);color:var(--ink-blue-3);border-color:var(--outline-blue-1)}
