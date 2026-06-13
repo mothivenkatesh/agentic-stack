@@ -87,3 +87,26 @@ One UI implications:
 - Use a progressive mobile builder: flow first, then selected node details and testing.
 - Show node-level errors on cards and flow-level errors near deploy/recommend/publish.
 - Let users test or preview without leaving the builder context.
+
+## Recko: Building A Design System
+
+Source: https://suwardhan.com/18531115
+
+Relevant lessons:
+
+- A design system should start with product principles and a UI audit, not with isolated components.
+- The UI audit should inventory every UI element, variation, page layout, typeface, icon, and color.
+- Foundation order matters: spacing, layout/grid, type scale, color, then icon library.
+- A 4px base scale keeps margins, paddings, and component sizes consistent.
+- A 12-column content-area grid gives flexible 2/3/4-column layouts while fixed sidebars remain outside the content grid.
+- Type scale must pair font size with line height; line-height grids are easier to implement than baseline grids.
+- Components need explicit state matrices, including enabled, focus, hover, active, loading, and disabled.
+- Adoption depends on trust: communication, inclusive decisions, quick support, design-system QA, and changelog visibility.
+
+One UI implications:
+
+- Keep a living audit and use it to prioritize components.
+- Add layout/grid and type/line-height tokens, not only color/radius tokens.
+- Document component anatomy, states, edge cases, and token mapping before calling a component complete.
+- Treat deviations as backlog for the next One UI version instead of allowing silent one-off overrides.
+- Run design-system QA before handoff or merge.
