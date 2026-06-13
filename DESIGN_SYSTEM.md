@@ -51,6 +51,29 @@ One UI is the shared design system for the GTMstack / India Payments / Agentic S
 - Cards should be white with a 1px subtle border and 12px radius.
 - Avoid heavy shadows; use shadows only to separate floating overlays or active hover states.
 
+## Mobile App Shell
+
+Mobile product screens should feel intentionally designed, not like compressed desktop screens.
+
+- Use a sticky compact top bar for app identity, current context, and overflow/navigation access.
+- Use a dark bottom navigation bar for the primary app sections when the desktop app uses a dark sidebar.
+- Respect `env(safe-area-inset-bottom)` and keep primary actions above the OS home indicator.
+- Use 44px minimum tap targets for bottom nav, icon buttons, segmented controls, and primary actions.
+- Prefer a single-column task flow with progressive disclosure over shrinking a 3-column desktop layout.
+- Keep the current entity, saved context, and trust/security status visible near the top of mobile flows.
+- Use sticky mobile action bars for expensive actions such as generate, deploy, recommend, publish, vote, connect, or review.
+
+## Builder Layouts
+
+For journey builders, conversation builders, flow editors, prompt chains, and agent-workflow designers:
+
+- Desktop builder layout: assets/library rail, central flow canvas, configuration/testing panel.
+- Mobile builder layout: flow first, then configuration/testing, with assets exposed through tabs, drawers, or compact chips.
+- Every node needs type, status, label, short description, and next action.
+- Use semantic status tokens for node errors, warnings, ready states, and testing results.
+- Show flow-level status near the deploy/recommend/publish action.
+- Let users test or preview the journey without losing their place in the builder.
+
 ## No Structural Inline CSS
 
 Generated UI must not use inline CSS for structure, layout, color, typography, radius, shadows, spacing, or state styling. Put styling in named classes, components, or token-backed CSS variables.

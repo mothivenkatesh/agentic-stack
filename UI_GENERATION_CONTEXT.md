@@ -42,6 +42,8 @@ These rules are derived from product-design case studies on complex reporting an
 
 - From ScaleXP's reporting work: users needed flexible columns, actual-vs-target comparison, entity breakdowns, reusable metric definitions, and correct tree-based calculation order. One UI should treat analytics UI as a configurable system of definitions, not only as charts on a page. Source: https://suwardhan.com/scalexp
 - From Clarisights' custom-dimensions work: users were hurt by redundant filters, hidden downstream effects, and important details hidden behind too many clicks. One UI should give single-click access to values, channels, filters/rules, and dependencies before publishing changes. Source: https://suwardhan.com/clarisights
+- From Leap's wallet work: mobile power-user UI needs intuitive information architecture, explicit trust/security communication, cohesive component libraries, and compact task flows for high-risk actions. One UI mobile should use native-feeling navigation, clear account/entity context, and visible trust states. Source: https://suwardhan.com/leap
+- From Smartbeings' conversation-flow builder: complex builder UI should preserve context with domain assets, the flow chart, and configuration/testing in one place. Node types, branching, live testing, and visible node/flow errors are first-class UI objects. Source: https://suwardhan.com/smartbeings
 - Use compact, scan-first listing views for reusable definitions. Put critical fields directly in the row or card rather than behind nested menus.
 - Prefer a dependency modal or drawer when edits may affect other surfaces. Show affected reports, generated UI, owners, and last-used metadata.
 - Use color to support rule/state comprehension, but tokenized status colors must carry the meaning; do not invent local palettes per screen.
@@ -74,6 +76,8 @@ If a generated UI cannot identify these pieces, it should start with a conservat
 | Compare view | User chooses between options | Segmented controls, normalized rows, difference highlights |
 | AI review queue | User approves or edits generated items | Status tabs, confidence chips, source citations, batch actions |
 | Personalized portfolio | User monitors many owned entities | Owner-specific filters, pinned entities, alerts, portfolio rollup, per-entity drilldown |
+| Mobile task app | User acts on a small screen repeatedly | Sticky context bar, bottom nav, one-column cards, safe-area action bar |
+| Journey builder | User designs a flow or agent journey | Assets rail, flow canvas, configuration/testing panel, node status |
 
 Do not use a marketing hero for app screens. Hero-scale type belongs only to public landing pages.
 
@@ -84,6 +88,16 @@ Do not use a marketing hero for app screens. Hero-scale type belongs only to pub
 - Light workspace with constrained inner content.
 - Sidebar items use icon plus label, grouped by task stage.
 - Active state uses the app accent but remains readable on `--ds-sidebar-bg`.
+- On mobile, replace the desktop sidebar with a sticky compact top bar plus dark bottom navigation for the main sections.
+- Respect safe areas and keep bottom actions above `env(safe-area-inset-bottom)`.
+
+### Mobile Screens
+- Use one dominant task per screen.
+- Keep tap targets at least 44px high.
+- Put primary actions at the bottom or directly after the relevant input.
+- Keep the active entity/account/portfolio/wallet/workspace visible before asking for action.
+- Show trust, security, saved-state, or data-scope messages near sensitive actions.
+- Use bottom sheets or drawers for focused configuration; avoid full desktop modals on small screens.
 
 ### Page Header
 - Kicker: optional, mono or small uppercase, app accent.
@@ -134,6 +148,14 @@ Do not use a marketing hero for app screens. Hero-scale type belongs only to pub
 - Provide regenerate, edit, copy/export, and save actions when appropriate.
 - Never make AI output look more certain than the available evidence supports.
 
+### Journey Builders
+- Use three regions on desktop: assets/library, flow canvas, configuration/testing.
+- Use progressive regions on mobile: flow, selected node configuration, then tester/output.
+- Node cards should expose node type, label, status, branch/next-step relationship, and errors.
+- Keep branch conditions visible and editable next to the branch node.
+- If no node is selected, the configuration panel should become a testing/preview panel.
+- Flow-level errors belong near the publish/deploy/recommend action; node-level errors belong on the node.
+
 ## Personalization Rules
 
 Personalized UI should make the user's context visible and editable:
@@ -166,6 +188,8 @@ A generated screen is gold-standard only if all checks pass:
 | State coverage | Loading, empty, error, success, warning, disabled states exist where applicable |
 | Evidence | AI or analytical claims include source, timestamp, confidence, or assumption context |
 | Dependencies | Shared definitions expose impacted reports, workflows, generated UI, and owners |
+| Mobile quality | Top context bar, dark bottom nav, safe-area spacing, 44px tap targets |
+| Builder quality | Assets, flow, configuration/testing, node status, branch/error states stay visible |
 | Responsiveness | Layout works at desktop and mobile widths without overlapping or clipped text |
 | Accessibility | Text contrast is AA for small text; controls have labels and visible focus states |
 | Density | Operational screens are scannable and not padded like marketing pages |
@@ -182,6 +206,8 @@ Keep the dark sidebar + light workspace shell.
 Use the app accent only for primary actions, active states, focused controls, and key chart series.
 Do not use structural inline CSS. Use classes, components, and --ds-* tokens.
 Choose layout by user task: dashboard, builder, research browser, detail workspace, compare view, AI review queue, or personalized portfolio.
+For mobile UI, use a compact top context bar, dark bottom navigation, safe-area action spacing, and one-column task flows.
+For journey builders, keep assets, flow canvas, configuration/testing, node status, and branch/error states visible.
 Include loading, empty, error, warning, and success states when relevant.
 For AI output, include confidence, evidence, provenance, recency, and human override actions.
 For shared definitions, show dependencies and publish impact before destructive or global edits.

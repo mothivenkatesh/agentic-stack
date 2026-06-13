@@ -22,6 +22,13 @@ const NAV = [
     { id: 'prd', label: 'PRD Builder', icon: 'description' },
   ] },
 ];
+const MOBILE_NAV = [
+  { id: 'home', label: 'Home', icon: 'home' },
+  { id: 'pains', label: 'Ideas', icon: 'lightbulb' },
+  { id: 'stack', label: 'Stack', icon: 'lan' },
+  { id: 'prd', label: 'PRD', icon: 'description' },
+  { id: 'saved', label: 'Saved', icon: 'bookmark' },
+];
 const APP_VIEWS = new Set(NAV.flatMap((g) => g.items.map((i) => i.id)));
 const currentView = () => (location.hash || '').replace(/^#\/?/, '') || 'landing';
 
@@ -66,7 +73,7 @@ function App() {
 
       <aside class=${'sidebar' + (navOpen ? ' open' : '')} data-theme="dark">
         <div class="sb-brand">
-          <a href="#" onClick=${(e) => { e.preventDefault(); location.hash = ''; }} style="display:flex;align-items:center;gap:10px;color:inherit">
+          <a class="sb-brand-link" href="#" onClick=${(e) => { e.preventDefault(); location.hash = ''; }}>
             <span class="logo"><${Icon} name="bolt" /></span>
             <span>Agentic Stack</span>
           </a>
@@ -91,7 +98,7 @@ function App() {
           <button class="sb-link" onClick=${() => { setFeedbackOpen(true); setNavOpen(false); }}><${Icon} name="edit" size="18" /> Share feedback</button>
           ${authAvailable
             ? html`<button class="sb-link" onClick=${() => (user ? auth.logout() : auth.login())}><${Icon} name=${user ? 'logout' : 'login'} size="18" /> ${user ? 'Sign out' : 'Sign in to save'}</button>`
-            : html`<div class="sb-source" style="margin:6px 0 0"><${Icon} name="cloud_off" size="16" /> Saved in this browser</div>`}
+            : html`<div class="sb-source sb-source-offline"><${Icon} name="cloud_off" size="16" /> Saved in this browser</div>`}
           <p class="sb-credit">Built by <a href="https://www.linkedin.com/in/mothivenkatesh/" target="_blank" rel="noopener">Mothi</a></p>
         </div>
       </aside>
@@ -99,11 +106,19 @@ function App() {
       <main class="main">
         <div class="mobile-top">
           <button class="hamb" onClick=${() => setNavOpen(true)} aria-label="Open navigation"><${Icon} name="menu" size="20" /></button>
-          <span style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--ink-gray-9)"><span class="logo-sm"><${Icon} name="bolt" size="18" /></span> Agentic Stack</span>
-          <span style="width:38px"></span>
+          <span class="mobile-title"><span class="logo-sm"><${Icon} name="bolt" size="18" /></span> Agentic Stack</span>
+          <span class="mobile-top-spacer"></span>
         </div>
         ${Body}
       </main>
+
+      <nav class="mobile-bottom-nav" data-theme="dark" aria-label="Primary mobile navigation">
+        ${MOBILE_NAV.map((n) => html`
+          <button class=${'mb-item' + (view === n.id ? ' active' : '')} onClick=${() => go(n.id)} aria-current=${view === n.id ? 'page' : null}>
+            <${Icon} name=${n.icon} cls=${view === n.id ? 'fill' : ''} />
+            <span>${n.label}</span>
+          </button>`)}
+      </nav>
 
       <${FeedbackModal} open=${feedbackOpen} onClose=${() => setFeedbackOpen(false)} />
       <${WelcomeTour} open=${tourOpen} onClose=${() => setTourOpen(false)} />

@@ -50,3 +50,40 @@ When generating UI for complex systems, an LLM should:
 - Include empty/loading/error/success/warning states.
 - Show evidence, recency, confidence, source, and assumption metadata for AI or analytics output.
 - Prefer dense, scan-first product layouts over decorative marketing layouts.
+
+## Leap: Web3 Wallet Mobile App
+
+Source: https://suwardhan.com/leap
+
+Relevant lessons:
+
+- Mobile apps need their own information architecture, not a compressed extension or desktop view.
+- High-risk actions need visible trust and security explanation before the user commits.
+- Power users still need compact, repeatable paths for assets, transfers, staking, governance, and activity.
+- A component library is essential because the same mobile patterns repeat across portfolio, send, connect, stake, proposal, and asset-detail screens.
+
+One UI implications:
+
+- Use sticky mobile context bars, dark bottom navigation, safe-area-aware actions, and 44px tap targets.
+- Keep active entity/account/workspace context visible near the top of the flow.
+- Put trust/security/saved-state explanation beside sensitive generation, connection, publishing, or deploy actions.
+- Prefer compact cards and bottom sheets to full desktop panels on mobile.
+
+## Smartbeings: Conversation Flow Builder
+
+Source: https://suwardhan.com/smartbeings
+
+Relevant lessons:
+
+- Complex flow builders work best when assets, flow canvas, and configuration/testing stay visible in one place.
+- Domain assets such as nodes, intents, entities, and code blocks should be one click away while building.
+- Node types need visual distinction; branch conditions and node errors must be visible at the point of work.
+- If no node is selected, the configuration area can become a live testing panel.
+- Clear empty states and guided help reduce onboarding friction.
+
+One UI implications:
+
+- Use a three-pane desktop builder: assets rail, central journey canvas, configuration/testing panel.
+- Use a progressive mobile builder: flow first, then selected node details and testing.
+- Show node-level errors on cards and flow-level errors near deploy/recommend/publish.
+- Let users test or preview without leaving the builder context.
