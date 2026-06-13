@@ -134,12 +134,12 @@ export function PainIdeas({ go, seed, savedOnly }) {
         <div>${!all ? 'Loading the idea browser…' : savedOnly ? html`<b>${fmtNum(favs.length)}</b> saved ${favs.length === 1 ? 'pain' : 'pains'}. Open one to validate it or start building.` : html`<b>${fmtNum(all.length)}</b> pain points, each answering who hurts, how big, what they pay, the gap, and why now.`}</div>
       </div>
 
-      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+      <div class="pi-toolbar">
         <div class="search"><${Icon} name="search" />
           <input type="search" placeholder="Search pain, industry, or who hurts…" value=${q}
             onInput=${(e) => { setQ(e.target.value); setPage(1); }} />
         </div>
-        <span class="muted" style="font-size:13px"><strong style="color:var(--ink-gray-9)">${fmtNum(filtered.length)}</strong> results</span>
+        <span class="muted pi-count"><strong>${fmtNum(filtered.length)}</strong> results</span>
         ${activeFilters ? html`<button class="btn btn-ghost btn-sm" onClick=${() => { setQ(''); setVertical(''); setWorkflow(''); setMinSev(0); setVerdict(''); setYcFit(''); setPage(1); }}><${Icon} name="ink_eraser" size="18" /> Clear</button>` : ''}
       </div>
 
@@ -166,7 +166,7 @@ export function PainIdeas({ go, seed, savedOnly }) {
         </aside>
 
         <main>
-          ${!all ? html`<div class="cards">${Array(6).fill(0).map(() => html`<div class="card"><span class="skel" style="width:60%"></span><span class="skel" style="width:90%;height:16px"></span><span class="skel"></span><span class="skel" style="width:80%"></span></div>`)}</div>`
+          ${!all ? html`<div class="cards">${Array(6).fill(0).map(() => html`<div class="card"><span class="skel skel-w60"></span><span class="skel skel-line"></span><span class="skel"></span><span class="skel skel-w80"></span></div>`)}</div>`
             : !filtered.length ? html`<${Empty} icon=${savedOnly ? 'bookmark_border' : 'search_off'} title=${savedOnly ? 'No saved pains yet' : 'No matches'}>${savedOnly ? 'Tap the bookmark on any pain to save it here for later.' : 'Try loosening a filter or clearing the search.'}</${Empty}>`
             : html`
               <div class="cards">
@@ -222,8 +222,8 @@ function PainModal({ p, go, onClose, fav, onFav }) {
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
-    const prev = document.body.style.overflow; document.body.style.overflow = 'hidden';
-    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
+    document.body.classList.add('modal-open');
+    return () => { document.removeEventListener('keydown', onKey); document.body.classList.remove('modal-open'); };
   }, []);
   const scrollTo = (sec) => {
     const b = document.querySelector('.drawer-body'); if (!b) return;
@@ -236,11 +236,11 @@ function PainModal({ p, go, onClose, fav, onFav }) {
     <div class="drawer-back" onClick=${(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="pmtitle">
         <div class="drawer-head">
-          <div style="min-width:0">
+          <div class="u-min0">
             <div class="eyebrow"><${Icon} name="sell" size="14" /> ${p.vertical}</div>
             <h2 id="pmtitle">${p.title}</h2>
           </div>
-          <button class="modal-x" style="position:static" onClick=${onClose} aria-label="Close"><${Icon} name="close" size="20" /></button>
+          <button class="modal-x modal-x-inline" onClick=${onClose} aria-label="Close"><${Icon} name="close" size="20" /></button>
         </div>
 
         <div class="drawer-body" ref=${bodyRef}>
@@ -307,8 +307,8 @@ function PainModal({ p, go, onClose, fav, onFav }) {
           ${(v && v.riskiest_assumptions && v.riskiest_assumptions.length) || (p.sources && p.sources.length) || (p.tags && p.tags.length) ? html`<div class="dgroup memo-panel">
             <div class="dlabel"><${Icon} name="fact_check" size="20" /> Before you commit</div>
             ${v && v.riskiest_assumptions && v.riskiest_assumptions.length ? html`<ul class="mlist">${v.riskiest_assumptions.map((r) => html`<li>${r}</li>`)}</ul>` : ''}
-            ${p.sources && p.sources.length ? html`<div class="dsources" style="margin-top:12px">${p.sources.map((s) => html`<a href=${s} target="_blank" rel="noopener"><${Icon} name="link" size="14" /> ${host(s)}</a>`)}</div>` : ''}
-            ${p.tags && p.tags.length ? html`<div class="dchips" style="margin-top:10px">${p.tags.map((t) => html`<span class="dchip">${t}</span>`)}</div>` : ''}
+            ${p.sources && p.sources.length ? html`<div class="dsources mt-12">${p.sources.map((s) => html`<a href=${s} target="_blank" rel="noopener"><${Icon} name="link" size="14" /> ${host(s)}</a>`)}</div>` : ''}
+            ${p.tags && p.tags.length ? html`<div class="dchips mt-10">${p.tags.map((t) => html`<span class="dchip">${t}</span>`)}</div>` : ''}
           </div>` : ''}
         </div>
         <div class="drawer-foot">

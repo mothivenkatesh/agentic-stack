@@ -22,11 +22,11 @@ export function Skills({ go }) {
         </div>
       </div>
 
-      <div class="glass-card" style="padding:18px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center">
-        <div style="min-width:0">
-          <div class="lead" style="margin-bottom:8px">Add all 18 to Claude Code</div>
+      <div class="glass-card sk-hero">
+        <div class="u-min0">
+          <div class="lead mb-8">Add all 18 to Claude Code</div>
           <div class="codeblock"><span class="copybtn" onClick=${(e) => copyText(installText, e.target)}>copy</span>${d.install.map((l) => html`<div><span class="pr">$</span> ${l}</div>`)}</div>
-          <p class="muted" style="font-size:12px;margin:10px 0 0">Free · open-source · ~30s · no config. Then run <span class="kbd">/agent-blueprint:agent-prd</span> to start a spec.</p>
+          <p class="muted sk-sub">Free · open-source · ~30s · no config. Then run <span class="kbd">/agent-blueprint:agent-prd</span> to start a spec.</p>
         </div>
         <a class="btn btn-ghost" href=${d.repo} target="_blank" rel="noopener"><${Icon} name="open_in_new" size="18" /> View repo</a>
       </div>
@@ -36,7 +36,7 @@ export function Skills({ go }) {
         return html`
           <div class="skill-layer">
             <div class="sect-head"><h2>${layer.name}</h2><span class="count">${layer.tagline}</span></div>
-            <p class="muted" style="font-size:13px;margin:-6px 0 14px;max-width:680px">${layer.desc}</p>
+            <p class="muted sk-desc">${layer.desc}</p>
             <div class="skill-grid">
               ${skills.map((s) => html`
                 <div class=${'scard' + (s.star ? ' star' : '')}>
@@ -53,10 +53,10 @@ export function Skills({ go }) {
           </div>`;
       })}
 
-      <div class="glass-card" style="padding:20px;text-align:center">
-        <p style="font-size:15px;font-weight:600;margin-bottom:4px">Found your pain? Spec it.</p>
-        <p class="muted" style="font-size:13.5px;margin-bottom:14px">Pick a stack, draft the PRD. Both run on these skills.</p>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <div class="glass-card sk-cta">
+        <p class="sk-cta-h">Found your pain? Spec it.</p>
+        <p class="muted sk-cta-p">Pick a stack, draft the PRD. Both run on these skills.</p>
+        <div class="u-rowc">
           <button class="btn btn-accent" onClick=${() => go('stack')}><${Icon} name="lan" size="18" /> Pick a stack</button>
           <button class="btn btn-primary" onClick=${() => go('prd')}><${Icon} name="description" size="18" /> Write a PRD</button>
         </div>

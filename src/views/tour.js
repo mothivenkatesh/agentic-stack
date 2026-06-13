@@ -57,15 +57,14 @@ export function WelcomeTour({ open, onClose }) {
 
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
     const onKey = (e) => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowRight') setIdx((i) => Math.min(STEPS.length - 1, i + 1));
       if (e.key === 'ArrowLeft') setIdx((i) => Math.max(0, i - 1));
     };
     window.addEventListener('keydown', onKey);
-    return () => { document.body.style.overflow = prev; window.removeEventListener('keydown', onKey); };
+    return () => { document.body.classList.remove('modal-open'); window.removeEventListener('keydown', onKey); };
   }, [open, onClose]);
 
   if (!open) return null;
@@ -89,33 +88,33 @@ export function WelcomeTour({ open, onClose }) {
   }
 
   const card = html`
-    <div style=${hasTarget ? { position: 'fixed', width: TIP_W + 'px', ...tipStyle } : { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '420px', maxWidth: '90vw' }}>
-      ${hasTarget ? html`<span aria-hidden="true" style=${{
+    <div style=${/* one-ui-allow: tooltip position measured from the target rect */ hasTarget ? { position: 'fixed', width: TIP_W + 'px', ...tipStyle } : { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '420px', maxWidth: '90vw' }}>
+      ${hasTarget ? html`<span aria-hidden="true" style=${/* one-ui-allow: arrow offset from the computed placement side */ {
         position: 'absolute', width: '12px', height: '12px', background: '#fff', borderTop: '1px solid var(--outline-gray-2)', borderLeft: '1px solid var(--outline-gray-2)', zIndex: -1,
         ...(arrowSide === 'top' ? { top: '-6px', left: '50%', transform: 'translateX(-50%) rotate(45deg)' } : {}),
         ...(arrowSide === 'bottom' ? { bottom: '-6px', left: '50%', transform: 'translateX(-50%) rotate(45deg)' } : {}),
         ...(arrowSide === 'left' ? { left: '-6px', top: '50%', transform: 'translateY(-50%) rotate(45deg)' } : {}),
         ...(arrowSide === 'right' ? { right: '-6px', top: '50%', transform: 'translateY(-50%) rotate(45deg)' } : {}),
       }}></span>` : ''}
-      <div style="background:var(--surface-white);border:1px solid var(--outline-gray-2);border-radius:var(--r-xl);box-shadow:var(--sh-4);overflow:hidden">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--outline-gray-1)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="mono" style="font-size:11px;color:var(--ink-gray-5)">${idx + 1} / ${STEPS.length}</span>
-            <div style="display:flex;gap:4px">${STEPS.map((_, i) => html`<span style=${{ width: '6px', height: '6px', borderRadius: '50%', background: i === idx ? 'var(--brand)' : i < idx ? 'var(--ink-gray-4)' : 'var(--surface-gray-3)' }}></span>`)}</div>
+      <div class="tour-card">
+        <div class="tour-head">
+          <div class="u-row-tight">
+            <span class="mono tour-step">${idx + 1} / ${STEPS.length}</span>
+            <div class="tour-dots">${STEPS.map((_, i) => html`<span style=${/* one-ui-allow: step-dot size + active-step color */ { width: '6px', height: '6px', borderRadius: '50%', background: i === idx ? 'var(--brand)' : i < idx ? 'var(--ink-gray-4)' : 'var(--surface-gray-3)' }}></span>`)}</div>
           </div>
-          <button class="modal-x" style="position:static;width:26px;height:26px;border:none;box-shadow:none;background:none" onClick=${onClose} aria-label="Close tour"><${Icon} name="close" size="18" /></button>
+          <button class="modal-x tour-x" onClick=${onClose} aria-label="Close tour"><${Icon} name="close" size="18" /></button>
         </div>
-        <div style="padding:18px">
-          <div class="mono" style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--brand-strong);margin-bottom:6px;text-transform:uppercase">${step.eyebrow}</div>
-          <h2 style="font-size:16px;font-weight:600;margin:0 0 6px">${step.title}</h2>
-          <p style="font-size:13.5px;color:var(--ink-gray-7);line-height:1.6;margin:0">${step.body}</p>
-          ${step.bullets ? html`<ul style="margin:12px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px">
-            ${step.bullets.map((b) => html`<li style="display:flex;gap:8px;font-size:12.5px;color:var(--ink-gray-7);line-height:1.5"><span style="margin-top:6px;width:4px;height:4px;border-radius:50%;background:var(--brand);flex-shrink:0"></span><span>${b}</span></li>`)}
+        <div class="tour-body">
+          <div class="mono tour-eyebrow">${step.eyebrow}</div>
+          <h2 class="tour-title">${step.title}</h2>
+          <p class="tour-text">${step.body}</p>
+          ${step.bullets ? html`<ul class="tour-bullets">
+            ${step.bullets.map((b) => html`<li class="tour-bullet"><span class="tour-bdot"></span><span>${b}</span></li>`)}
           </ul>` : ''}
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px solid var(--outline-gray-1);background:var(--surface-gray-1)">
-          <button class="btn btn-ghost btn-sm" style="border:none;background:none" onClick=${onClose}>Skip</button>
-          <div style="display:flex;gap:8px">
+        <div class="tour-foot">
+          <button class="btn btn-ghost btn-sm btn-bare" onClick=${onClose}>Skip</button>
+          <div class="u-row-tight">
             ${!isFirst ? html`<button class="btn btn-ghost btn-sm" onClick=${() => setIdx((i) => Math.max(0, i - 1))}><${Icon} name="arrow_back" size="16" /> Back</button>` : ''}
             <button class="btn btn-accent btn-sm" onClick=${() => { if (isLast) { onClose(); if (step.go) location.hash = '#/' + step.go; } else setIdx((i) => Math.min(STEPS.length - 1, i + 1)); }}>${isLast ? (step.cta || 'Got it') : (step.next || 'Next')}</button>
           </div>
@@ -126,8 +125,8 @@ export function WelcomeTour({ open, onClose }) {
   return html`
     <div class="tour-root" role="dialog" aria-modal="true" aria-labelledby="tour-title">
       ${hasTarget && rect
-        ? html`<div aria-hidden="true" onClick=${onClose} style=${{ position: 'fixed', top: (rect.top - 6) + 'px', left: (rect.left - 6) + 'px', width: (rect.width + 12) + 'px', height: (rect.height + 12) + 'px', boxShadow: '0 0 0 9999px rgba(15,23,42,.55)', borderRadius: '10px', border: '2px solid var(--brand)', pointerEvents: 'auto', transition: 'all .25s ease' }}></div>`
-        : html`<div aria-hidden="true" onClick=${onClose} style="position:absolute;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(3px)"></div>`}
+        ? html`<div aria-hidden="true" onClick=${onClose} style=${/* one-ui-allow: spotlight box measured from the target rect */ { position: 'fixed', top: (rect.top - 6) + 'px', left: (rect.left - 6) + 'px', width: (rect.width + 12) + 'px', height: (rect.height + 12) + 'px', boxShadow: '0 0 0 9999px rgba(15,23,42,.55)', borderRadius: '10px', border: '2px solid var(--brand)', pointerEvents: 'auto', transition: 'all .25s ease' }}></div>`
+        : html`<div aria-hidden="true" onClick=${onClose} class="tour-backdrop"></div>`}
       ${card}
     </div>`;
 }

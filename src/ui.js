@@ -80,8 +80,8 @@ export function Modal({ onClose, children, labelledby }) {
   useEffect(() => {
     const k = (e) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', k);
-    document.body.style.overflow = 'hidden';
-    return () => { document.removeEventListener('keydown', k); document.body.style.overflow = ''; };
+    document.body.classList.add('modal-open');
+    return () => { document.removeEventListener('keydown', k); document.body.classList.remove('modal-open'); };
   }, []);
   return html`
     <div class="modal-back" onClick=${(e) => { if (e.target === e.currentTarget) onClose(); }}>
@@ -105,7 +105,7 @@ export function Pager({ page, pages, total, start, end, onGo }) {
   const sorted = [...nums].sort((a, b) => a - b);
   const out = []; let last = 0;
   sorted.forEach((p) => {
-    if (last && p - last > 1) out.push(html`<span class="pgbtn" style="border:none;background:none;cursor:default">…</span>`);
+    if (last && p - last > 1) out.push(html`<span class="pgbtn pgbtn-gap">…</span>`);
     out.push(html`<button class=${clsx('pgbtn', p === page && 'on')} onClick=${() => onGo(p)}>${p}</button>`);
     last = p;
   });

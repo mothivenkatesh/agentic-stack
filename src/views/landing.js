@@ -30,9 +30,9 @@ export function Landing({ go }) {
       <nav class="lp-nav"><div class="in">
         <div class="lp-brand"><span class="logo"><${Icon} name="bolt" /></span> Agentic Stack</div>
         <div class="lp-links">
-          <a onClick=${() => go('pains')} style="cursor:pointer">Pain Ideas</a>
-          <a onClick=${() => go('skills')} style="cursor:pointer">Skills</a>
-          <a onClick=${() => go('stack')} style="cursor:pointer">Stack</a>
+          <a class="u-clickable" onClick=${() => go('pains')}>Pain Ideas</a>
+          <a class="u-clickable" onClick=${() => go('skills')}>Skills</a>
+          <a class="u-clickable" onClick=${() => go('stack')}>Stack</a>
           <button class="btn btn-accent btn-sm" onClick=${() => go('home')}>Open the app</button>
         </div>
       </div></nav>
@@ -52,7 +52,7 @@ export function Landing({ go }) {
         <p class="lp-p">Four tools, one workflow. Each opens pre-filled from the one before.</p>
         <div class="lp-feats">
           ${FEATURES.map((f) => html`
-            <div class="lp-feat" onClick=${() => go(f.to)} style="cursor:pointer">
+            <div class="lp-feat u-clickable" onClick=${() => go(f.to)}>
               <div class=${'ic ' + f.cls}><${Icon} name=${f.ic} /></div>
               <h3>${f.title}</h3>
               <p>${f.body}</p>
@@ -67,8 +67,8 @@ export function Landing({ go }) {
           ${WHY.map(([ic, q, tag]) => html`
             <div class="lp-feat">
               <div class="ic ic-blue"><${Icon} name=${ic} /></div>
-              <h3 style="font-size:14px">${q}</h3>
-              <p class="mono" style="font-size:12px;color:var(--ink-gray-4)">${tag}</p>
+              <h3 class="lp-h3-sm">${q}</h3>
+              <p class="mono lp-tag">${tag}</p>
             </div>`)}
         </div>
       </div></section>
@@ -92,7 +92,7 @@ export function Landing({ go }) {
         </div>
       </div></section>
 
-      <section class="lp-section alt"><div class="lp-wrap" style="text-align:center">
+      <section class="lp-section alt"><div class="lp-wrap u-center">
         <h2 class="lp-h2">Pick a pain worth building</h2>
         <p class="lp-p">Free to browse. No account needed to start.</p>
         <div class="lp-cta">
@@ -102,18 +102,18 @@ export function Landing({ go }) {
 
       <footer class="lp-foot"><div class="lp-wrap">
         <div class="cols">
-          <div style="max-width:260px">
+          <div class="lp-about">
             <div class="logo"><${Icon} name="bolt" /></div>
-            <p style="font-size:13px;line-height:1.6;margin:0">A free idea browser and agent-spec workflow. Open, built on idea-box and agent-blueprint.</p>
+            <p class="lp-about-p">A free idea browser and agent-spec workflow. Open, built on idea-box and agent-blueprint.</p>
           </div>
           <div><h5>Find</h5>
-            <a onClick=${() => go('pains')} style="cursor:pointer">Pain Ideas</a>
+            <a class="u-clickable" onClick=${() => go('pains')}>Pain Ideas</a>
             <a href="https://github.com/mothivenkatesh/idea-box" target="_blank" rel="noopener">idea-box</a>
           </div>
           <div><h5>Build</h5>
-            <a onClick=${() => go('skills')} style="cursor:pointer">Agent Skills</a>
-            <a onClick=${() => go('stack')} style="cursor:pointer">Agent Stack</a>
-            <a onClick=${() => go('prd')} style="cursor:pointer">PRD Builder</a>
+            <a class="u-clickable" onClick=${() => go('skills')}>Agent Skills</a>
+            <a class="u-clickable" onClick=${() => go('stack')}>Agent Stack</a>
+            <a class="u-clickable" onClick=${() => go('prd')}>PRD Builder</a>
           </div>
           <div><h5>More</h5>
             <a href="https://github.com/mothivenkatesh/agent-blueprint" target="_blank" rel="noopener">agent-blueprint</a>

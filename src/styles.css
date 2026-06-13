@@ -810,3 +810,107 @@ textarea.input{resize:vertical;min-height:90px;line-height:1.55}
 .btn-lg .ms,.sb-item .ms,.lp-feat .ic .ms,.tmpl .ic .ms,.logo .ms,.logo-sm .ms,.banner > .ms,.empty > .ms{
   width:24px!important;height:24px!important;font-size:24px!important;
 }
+
+/* ============================================================
+   VIEW TEMPLATE CLASSES — replace structural inline styles in
+   src/views/* so the suite passes One UI audit:strict. Data-driven
+   styles (chart widths, measured tour overlays) stay inline with a
+   one-ui-allow note.
+   ============================================================ */
+/* generic utilities */
+.u-clickable{cursor:pointer}
+.u-center{text-align:center}
+.u-min0{min-width:0}
+.u-row-tight{display:flex;align-items:center;gap:8px}
+.u-end{display:flex;justify-content:flex-end;gap:8px}
+.u-rowc{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.mt-10{margin-top:10px}
+.mt-12{margin-top:12px}
+.mt-14{margin-top:14px}
+.mb-8{margin-bottom:8px}
+.mb-12{margin-bottom:12px}
+.mb-26{margin-bottom:26px}
+.mb-28{margin-bottom:28px}
+
+/* shared modal scaffold (feedback + settings) */
+.modal-sm{max-width:520px;padding:0}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--outline-gray-1)}
+.modal-head h2{font-size:15px;font-weight:600;margin:0;display:flex;align-items:center;gap:8px}
+.modal-x-inline{position:static}
+.modal-body{padding:20px;display:flex;flex-direction:column;gap:16px}
+.modal-body .field,.modal-form .field{margin:0}
+.modal-p{font-size:13px;line-height:1.6;margin:0}
+
+/* feedback modal */
+.modal-form{padding:20px;display:flex;flex-direction:column;gap:14px}
+.modal-done{padding:32px 20px;text-align:center}
+.modal-done .dt{font-size:14px;font-weight:600;margin-bottom:4px}
+.modal-done p{font-size:12.5px;margin-bottom:18px}
+.honeypot{position:absolute;left:-9999px;width:1px;height:1px}
+.ta-noresize{resize:none}
+.fb-count{text-align:right;margin-top:4px}
+.fb-cap{font-size:11px;color:var(--ink-gray-5)}
+.fb-cap.over{color:var(--ink-red-3)}
+.label-opt{font-weight:400}
+.fb-ctx{font-size:11px;font-style:italic}
+.banner-sm{font-size:12px;padding:8px 12px;margin:0}
+
+/* prd builder */
+.prd-split{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+.prd-form-col{flex:1 1 360px;min-width:0;max-width:560px}
+.prd-result-col{flex:2 1 460px;min-width:0}
+.input-tall{min-height:160px}
+.prd-row{display:flex;gap:8px;flex-wrap:wrap}
+.prd-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.prd-busy{font-size:13px}
+.prd-resulthead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.prd-md{white-space:pre-wrap;margin:0}
+.prd-samplenote{font-size:12.5px;flex:1 1 180px;min-width:0}
+
+/* landing */
+.lp-h3-sm{font-size:14px}
+.lp-tag{font-size:12px;color:var(--ink-gray-4)}
+.lp-about{max-width:260px}
+.lp-about-p{font-size:13px;line-height:1.6;margin:0}
+
+/* pain ideas */
+.pi-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.pi-count{font-size:13px}
+.pi-count strong{color:var(--ink-gray-9)}
+.skel-w60{width:60%}
+.skel-line{width:90%;height:16px}
+.skel-w80{width:80%}
+.pgbtn-gap{border:none;background:none;cursor:default}
+
+/* skills */
+.sk-hero{padding:18px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+.sk-sub{font-size:12px;margin:10px 0 0}
+.sk-desc{font-size:13px;margin:-6px 0 14px;max-width:680px}
+.sk-cta{padding:20px;text-align:center}
+.sk-cta-h{font-size:15px;font-weight:600;margin-bottom:4px}
+.sk-cta-p{font-size:13.5px;margin-bottom:14px}
+
+/* home */
+.home-skel{display:flex;flex-direction:column;gap:12px;padding:4px 0}
+.skel-h13{height:13px}
+
+/* tour */
+.tour-card{background:var(--surface-white);border:1px solid var(--outline-gray-2);border-radius:var(--r-xl);box-shadow:var(--sh-4);overflow:hidden}
+.tour-head{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--outline-gray-1)}
+.tour-step{font-size:11px;color:var(--ink-gray-5)}
+.tour-dots{display:flex;gap:4px}
+.tour-x{position:static;width:26px;height:26px;border:none;box-shadow:none;background:none}
+.tour-body{padding:18px}
+.tour-eyebrow{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--brand-strong);margin-bottom:6px;text-transform:uppercase}
+.tour-title{font-size:16px;font-weight:600;margin:0 0 6px}
+.tour-text{font-size:13.5px;color:var(--ink-gray-7);line-height:1.6;margin:0}
+.tour-bullets{margin:12px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.tour-bullet{display:flex;gap:8px;font-size:12.5px;color:var(--ink-gray-7);line-height:1.5}
+.tour-bdot{margin-top:6px;width:4px;height:4px;border-radius:50%;background:var(--brand);flex-shrink:0}
+.tour-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px solid var(--outline-gray-1);background:var(--surface-gray-1)}
+.btn-bare{border:none;background:none}
+.tour-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(3px)}
+
+/* modal scroll-lock class (toggled instead of setting body overflow imperatively) + settings actions */
+body.modal-open{overflow:hidden}
+.set-actions{display:flex;align-items:center;gap:8px;padding-top:4px}
