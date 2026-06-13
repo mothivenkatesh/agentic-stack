@@ -32,7 +32,8 @@ export function run(ctx) {
   ok('no-js-gradients', jsGrad.length === 0, jsGrad.join(', '));
 
   // -- fonts ------------------------------------------------------------
-  ok('font-geist', css.includes("--font:'Geist'"), '--font must lead with Geist');
+  const usesOneUiFont = css.includes('--font:var(--ds-font-sans)') && /--ds-font-sans:[^;]*'Geist/.test(css);
+  ok('font-geist', usesOneUiFont || css.includes("--font:'Geist'"), '--font must use the One UI Geist stack');
   ok('font-mono', css.includes("--mono:'Geist Mono'"), '--mono must lead with Geist Mono');
   const badFonts = [...css.matchAll(/font-family:([^;}]+)/g)]
     .map((m) => m[1].trim())
