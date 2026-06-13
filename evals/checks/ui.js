@@ -13,6 +13,8 @@ export function run(ctx) {
   const ok = (id, cond, msg) => r.push({ id, ok: !!cond, msg: msg || '' });
   const css = ctx.file('src/styles.css');
   const htmlShell = ctx.file('index.html');
+  const appShell = ctx.file('src/app.js');
+  const stackView = ctx.file('src/views/stack.js');
   const jsFiles = ctx.src.filter((f) => f.rel.endsWith('.js'));
 
   // -- gradients --------------------------------------------------------
@@ -32,7 +34,8 @@ export function run(ctx) {
   ok('no-js-gradients', jsGrad.length === 0, jsGrad.join(', '));
 
   // -- fonts ------------------------------------------------------------
-  ok('font-geist', css.includes("--font:'Geist'"), '--font must lead with Geist');
+  const usesOneUiFont = css.includes('--font:var(--ds-font-sans)') && /--ds-font-sans:[^;]*'Geist/.test(css);
+  ok('font-geist', usesOneUiFont || css.includes("--font:'Geist'"), '--font must use the One UI Geist stack');
   ok('font-mono', css.includes("--mono:'Geist Mono'"), '--mono must lead with Geist Mono');
   const badFonts = [...css.matchAll(/font-family:([^;}]+)/g)]
     .map((m) => m[1].trim())
@@ -83,5 +86,29 @@ export function run(ctx) {
     'index.html shell drifted (viewport / theme-color / module script)');
   const missingTokens = CORE_TOKENS.filter((t) => !css.includes(t));
   ok('core-tokens', missingTokens.length === 0, 'styles.css missing tokens: ' + missingTokens.join(' '));
+
+  // -- One UI mobile + builder standards -------------------------------
+  ok('mobile-bottom-nav',
+    appShell.includes('mobile-bottom-nav') &&
+    css.includes('.mobile-bottom-nav') &&
+    css.includes('env(safe-area-inset-bottom)') &&
+    css.includes('.mb-item{min-height:52px'),
+    'mobile app shell must expose a safe-area aware dark bottom nav with large tap targets');
+  ok('stack-builder-three-pane',
+    stackView.includes('builder-shell') &&
+    stackView.includes('builder-assets') &&
+    stackView.includes('builder-canvas') &&
+    stackView.includes('builder-inspector') &&
+    css.includes('grid-template-columns:260px minmax(0,1fr) 330px'),
+    'stack picker must keep assets, flow canvas, and configuration/testing visible');
+  ok('stack-builder-testing',
+    stackView.includes('Configuration and testing') &&
+    stackView.includes('Live tester') &&
+    stackView.includes('node-status') &&
+    stackView.includes('flow-status'),
+    'builder must expose testing, node status, and flow status');
+  ok('touched-surfaces-no-inline-style',
+    !/\bstyle=/.test(appShell) && !/\bstyle=/.test(stackView),
+    'app shell and stack builder should use classes instead of structural inline CSS');
   return r;
 }
