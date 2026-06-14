@@ -13,7 +13,7 @@ Three jobs in one app:
 
 ## Design
 
-- Frappe design system: dark sidebar + light workspace (the gtmstack shell), Inter, Material Symbols (Rounded, outlined, 24px, weight 300). Landing page follows frappe.io/framework.
+- One UI design system: dark sidebar + light workspace, Zoho Puvi only, and Phosphor icons via Iconify. Landing page follows the same product UI foundations.
 - Frontend: Preact + htm via esm.sh, native ES modules, **no build step**.
 - Backend: Vercel serverless functions (TypeScript) for auth + persistence.
 - Auth: WorkOS AuthKit (passwordless email). DB: Neon Postgres.
@@ -46,7 +46,7 @@ Run before every commit; nothing ships on a red gate. Five suites:
 | `data-integrity` | 26 pains files parse; required fields + ranges; unique IDs; ≥1,000 entries; banned-content scan (illegal-in-India); validations resolve to real pains with known verdicts |
 | `skills-contract` | exactly 18 skills / 3 layers / orders 1–18; the 4 Differentiator skills by id; cmd format; install commands |
 | `stack-wizard` | every possible answer combination through the real `recommend()` (`src/stackLogic.js`) resolves to a defined layer/builder/model/memory/eval; logic's question-ids exist in `stack-rules.json` |
-| `ui-consistency` | gradient ban (sole exception `.skel` shimmer; never stacked); Geist/Geist Mono/Instrument Serif only; every icon name vetted in `ui.js`'s `PHOSPHOR_ICON` map; tour anchors exist; verdict color-maps cover the data; core tokens + html shell |
+| `ui-consistency` | gradient ban (sole exception `.skel` shimmer; never stacked); Zoho Puvi only with no external Google font loading; every icon name vetted in `ui.js`'s `PHOSPHOR_ICON` map; tour anchors exist; verdict color-maps cover the data; core tokens + html shell |
 | `copy-drift` | numbers in copy match data: "18 skills", "1,000 pains", 15 PRD sections with exactly 5 ★ across the outline, the system prompt, and the sample PRD |
 
 When a check legitimately needs to change (e.g. you add a 19th skill), update the data and the copy it points at — the failure message names both sides.

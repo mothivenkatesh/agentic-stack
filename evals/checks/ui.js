@@ -1,6 +1,6 @@
 // UI consistency: the design rules that keep the surface coherent.
 // 1. Gradients are banned (flat fills) — sole exception: the .skel loading shimmer.
-// 2. Fonts: Geist (UI) + Geist Mono (labels) + Instrument Serif (landing display only).
+// 2. Fonts: Zoho Puvi only, including labels and landing display.
 // 3. Icons: Phosphor regular; every icon name used must be vetted in ui.js's PHOSPHOR_ICON map.
 // 4. Tour targets must exist; verdict color-maps must cover the data's verdict set.
 export const name = 'ui-consistency';
@@ -34,15 +34,15 @@ export function run(ctx) {
   ok('no-js-gradients', jsGrad.length === 0, jsGrad.join(', '));
 
   // -- fonts ------------------------------------------------------------
-  const usesOneUiFont = css.includes('--font:var(--ds-font-sans)') && /--ds-font-sans:[^;]*'Geist/.test(css);
-  ok('font-geist', usesOneUiFont || css.includes("--font:'Geist'"), '--font must use the One UI Geist stack');
-  ok('font-mono', css.includes("--mono:'Geist Mono'"), '--mono must lead with Geist Mono');
+  const usesOneUiFont = css.includes('--font:var(--ds-font-sans)') && /--ds-font-sans:[^;]*'Zoho Puvi'/.test(css);
+  ok('font-puvi', usesOneUiFont, '--font must use the One UI Puvi stack');
+  ok('font-mono-puvi', css.includes('--mono:var(--ds-font-mono)') && /--ds-font-mono:[^;]*'Zoho Puvi'/.test(css), '--mono must use Zoho Puvi');
   const badFonts = [...css.matchAll(/font-family:([^;}]+)/g)]
     .map((m) => m[1].trim())
-    .filter((v) => !/^(var\(--font\)|var\(--mono\)|inherit|'Instrument Serif')/.test(v));
+    .filter((v) => !/^(var\(--font\)|var\(--mono\)|inherit|'Zoho Puvi')/.test(v));
   ok('font-family-discipline', badFonts.length === 0, 'unsanctioned font-family: ' + badFonts.join(' | '));
-  ok('html-fonts-link', /fonts\.googleapis\.com\/css2\?[^"]*Geist/.test(htmlShell) && htmlShell.includes('Instrument+Serif'),
-    'index.html must load Geist + Instrument Serif');
+  ok('html-no-google-fonts', !htmlShell.includes('fonts.googleapis.com') && !htmlShell.includes('fonts.gstatic.com'),
+    'index.html must not load Google fonts');
 
   // -- icons ------------------------------------------------------------
   ok('html-phosphor', htmlShell.includes('phosphor-icons'), 'index.html must load the Phosphor stylesheet');
@@ -82,7 +82,7 @@ export function run(ctx) {
   ok('verdicts-home', notInHome.length === 0, 'home.js SEGS misses verdict(s): ' + notInHome.join(', '));
 
   // -- shell + tokens ---------------------------------------------------
-  ok('html-shell', htmlShell.includes('name="viewport"') && htmlShell.includes('#00AA45') && /type="module" src="src\/app\.js"/.test(htmlShell),
+  ok('html-shell', htmlShell.includes('name="viewport"') && htmlShell.includes('#0070CC') && /type="module" src="src\/app\.js"/.test(htmlShell),
     'index.html shell drifted (viewport / theme-color / module script)');
   const missingTokens = CORE_TOKENS.filter((t) => !css.includes(t));
   ok('core-tokens', missingTokens.length === 0, 'styles.css missing tokens: ' + missingTokens.join(' '));
